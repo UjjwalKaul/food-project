@@ -32,7 +32,7 @@ export async function GET(req: Request) {
     const response = await axios.get(process.env.API_URL as string, { params });
 
     // Return the API response data as JSON
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data.hits);
   } catch (error) {
     console.error('Error fetching request:', error);
 
