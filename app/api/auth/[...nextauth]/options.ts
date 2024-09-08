@@ -2,10 +2,12 @@ import { prisma } from '@/app/util/db';
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { compare } from 'bcrypt';
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    maxAge: 24 * 60 * 60, // 24 hours
   },
   providers: [
     Credentials({
@@ -14,7 +16,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email', placeholder: 'Email' },
         password: {
           label: 'Password',
-          type: 'passsword',
+          type: 'password',
           placeholder: 'Password',
         },
       },
