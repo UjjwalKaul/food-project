@@ -1,10 +1,20 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const LogoutButton = () => {
+  const router = useRouter(); // Use useRouter for client-side redirection
+
   const handleLogout = async () => {
-    await signOut();
+    try {
+      await signOut({
+        redirect: false, // Prevent automatic redirection
+      });
+      router.push('/'); // Redirect to the home page manually
+    } catch (error) {
+      console.error('Failed to sign out:', error);
+    }
   };
 
   return (
