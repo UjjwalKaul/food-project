@@ -5,7 +5,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <header className="sticky top-0 z-10 flex justify-between p-5 shadow-md items-center bg-slate-800 mb-12">
-        <Link className="text-3xl font-bold" href="/">
+        <Link className="text-3xl font-bold" href="/dashboard">
           Dashboard
         </Link>
         <LogoutButton />
