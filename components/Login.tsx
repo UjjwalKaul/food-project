@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const Register = () => {
+const Login = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({
     email: '',
     password: '',
   });
+
   async function loginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsSubmitting(true);
@@ -21,13 +22,14 @@ const Register = () => {
     router.push('/dashboard');
     setIsSubmitting(false);
   }
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full max-w-md bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="flex justify-center">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-4xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
                 Delicious Recipes
               </h1>
             </div>
@@ -74,11 +76,11 @@ const Register = () => {
               <div className="flex flex-col justify-center">
                 <button
                   disabled={isSubmitting}
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md px-8 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md px-8 py-2.5 text-center mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   type="submit">
                   Login
                 </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
                   Don&apos;t have an account?{' '}
                   <Link className="hover:underline" href="/register">
                     Sign up
@@ -93,4 +95,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
