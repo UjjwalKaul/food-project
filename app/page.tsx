@@ -15,7 +15,7 @@ export default async function Home() {
           />
         </div>
       </div>
-      <div className="flex items-center justify-center">
+      <div>
         <Login />
       </div>
     </div>

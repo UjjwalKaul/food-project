@@ -1,72 +1,96 @@
 'use client';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-const Login = () => {
-  const session = useSession();
+const Register = () => {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const mailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    setIsSubmitting(!isSubmitting);
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
+  async function loginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const email = mailRef.current?.value || '';
-    const password = passwordRef.current?.value || '';
+    setIsSubmitting(true);
     await signIn('credentials', {
-      email,
-      password,
+      ...data,
+      redirect: false,
     });
-    setIsSubmitting(!isSubmitting);
+    router.push('/dashboard');
+    setIsSubmitting(false);
   }
-
   return (
-    <div className="border-2 border-slate-600 p-8 md:p-12 rounded-xl max-w-md mx-auto">
-      <h1 className="text-center text-2xl md:text-4xl font-bold p-2 mb-5">
-        Delicious Recipes
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-[8px]">
-          <label className="text-lg md:text-md">Email</label>
-          <input
-            type="email"
-            placeholder="xyz@google.com"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            ref={mailRef}
-            required
-          />
+    <section className="bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <div className="flex justify-center">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-4xl dark:text-white">
+                Delicious Recipes
+              </h1>
+            </div>
 
-          <label className="text-lg md:text-md">Password</label>
-          <input
-            type="password"
-            placeholder="•••••••••"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            ref={passwordRef}
-            required
-          />
-
-          <div className="flex justify-center mt-4">
-            <button
-              disabled={isSubmitting}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="submit">
-              Login
-            </button>
+            <form onSubmit={loginUser} className="space-y-4 md:space-y-6">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Email
+                </label>
+                <input
+                  value={data.email}
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="xyz@gmail.com"
+                  required
+                  onChange={(e) => {
+                    setData({ ...data, email: e.target.value });
+                  }}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Password
+                </label>
+                <input
+                  value={data.password}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="••••••••"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
+                  onChange={(e) => {
+                    setData({ ...data, password: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="flex flex-col justify-center">
+                <button
+                  disabled={isSubmitting}
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md px-8 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  type="submit">
+                  Login
+                </button>
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Don&apos;t have an account?{' '}
+                  <Link className="hover:underline" href="/register">
+                    Sign up
+                  </Link>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
-      </form>
-      <div className="flex justify-center">
-        <p>
-          Don&apos;t have an account?{' '}
-          <Link className="hover:underline" href="/register">
-            Sign up
-          </Link>
-        </p>
       </div>
-      <p>{JSON.stringify(session)}</p>
-    </div>
+    </section>
   );
 };
 
-export default Login;
+export default Register;
