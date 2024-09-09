@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       email: email,
     },
   });
-  if (!exist) {
+  if (exist) {
     return new NextResponse('User already exists', { status: 400 });
   }
   const hashedPassword = await hash(password, 12);

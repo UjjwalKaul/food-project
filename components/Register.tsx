@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const Register = () => {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -13,6 +14,7 @@ const Register = () => {
   });
   async function registerUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const response = await axios.post('/api/register', data);
       console.log(response.data);
@@ -20,6 +22,7 @@ const Register = () => {
     } catch (error) {
       console.error('Error', error);
     }
+    setIsSubmitting(false);
   }
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -89,6 +92,7 @@ const Register = () => {
               </div>
               <div className="flex flex-col justify-center">
                 <button
+                  disabled={isSubmitting}
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md px-8 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   type="submit">
                   Create an account
