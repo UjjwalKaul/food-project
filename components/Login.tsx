@@ -15,11 +15,19 @@ const Login = () => {
   async function loginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsSubmitting(true);
-    await signIn('credentials', {
+
+    const result = await signIn('credentials', {
       ...data,
       redirect: false,
     });
-    router.push('/dashboard');
+
+    if (result?.ok) {
+      router.push('/dashboard');
+    } else {
+      // Handle login error (e.g., show error message)
+      console.error('Login failed');
+    }
+
     setIsSubmitting(false);
   }
 
