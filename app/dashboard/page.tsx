@@ -2,7 +2,7 @@ import SearchBar from '@/components/SearchBar';
 
 const DashBoardPage = () => {
   return (
-    <div>
+    <div className="mb-10">
       <SearchBar />
     </div>
   );

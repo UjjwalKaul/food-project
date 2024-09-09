@@ -4,8 +4,8 @@ import Login from '@/components/Login';
 
 export default async function Home() {
   return (
-    <div className="grid grid-cols-2 h-screen">
-      <div className="flex items-center justify-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+      <div className="hidden md:flex items-center justify-center">
         <div className="w-full h-full relative">
           <Image
             src={burger}
@@ -15,7 +15,7 @@ export default async function Home() {
           />
         </div>
       </div>
-      <div>
+      <div className="flex items-center justify-center">
         <Login />
       </div>
     </div>
