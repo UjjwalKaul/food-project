@@ -1,9 +1,9 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import SearchItem from './SearchItem';
+import { SearchResult } from '@/app/util/types';
 
-// Custom hook for debounce
 const useDebounce = (value: string, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -20,10 +20,10 @@ const useDebounce = (value: string, delay: number) => {
   return debouncedValue;
 };
 
-const SearchBar = () => {
+const SearchBar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [searchResults, setSearchResults] = useState([]);
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
 
   useEffect(() => {
     if (debouncedSearchTerm) {

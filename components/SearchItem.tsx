@@ -1,13 +1,10 @@
-'use client';
-
+import { Recipe } from '@/app/util/types';
 import Image from 'next/image';
 
-const SearchItem = ({ recipe }) => {
-  console.log(recipe);
+const SearchItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   return (
     <div className="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <div className="relative w-full" style={{ height: '150px' }}>
-        {' '}
+      <div className="relative w-full" style={{ height: '350px' }}>
         <Image
           className="rounded-t-lg object-cover"
           src={recipe.image}
@@ -21,17 +18,24 @@ const SearchItem = ({ recipe }) => {
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {recipe.label}
         </h5>
-        <span className="bg-blue-100 text-blue-800 font-medium px-3 py-1.5  rounded dark:bg-blue-900 dark:text-blue-300 m-1">
-          {recipe.cuisineType}
-        </span>
-        <span className="bg-purple-100 text-purple-800 font-medium px-3 py-1.5  rounded dark:bg-purple-900 dark:text-purple-300 m-1">
-          {recipe.dishType}
-        </span>
-        <span className="bg-red-100 text-red-800 font-medium px-3 py-1.5  rounded dark:bg-red-900 dark:text-red-300 m-1">
-          {Math.ceil(recipe.calories)} kcal
-        </span>
+        <div className="flex flex-wrap">
+          <span className="bg-blue-100 text-blue-800 font-medium px-3 py-1.5 rounded dark:bg-blue-900 dark:text-blue-300 m-1.5">
+            {recipe.cuisineType}
+          </span>
+          <span className="bg-purple-100 text-purple-800 font-medium px-3 py-1.5 rounded dark:bg-purple-900 dark:text-purple-300 m-1.5">
+            {recipe.dishType}
+          </span>
+          <span className="bg-red-100 text-red-800 font-medium px-3 py-1.5 rounded dark:bg-red-900 dark:text-red-300 m-1.5">
+            {Math.ceil(recipe.calories)} kcal
+          </span>
+        </div>
+
         <p className="mt-3 mb-3 font-normal text-gray-700 dark:text-gray-400">
-          <ul>{}</ul>
+          <ul>
+            {recipe.ingredientLines.map((line, index) => (
+              <li key={index}>{line}</li>
+            ))}
+          </ul>
         </p>
         <a
           href={recipe.url}
