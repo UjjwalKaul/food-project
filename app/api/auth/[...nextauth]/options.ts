@@ -2,6 +2,7 @@ import { prisma } from '@/app/util/db';
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { compare } from 'bcrypt';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -9,6 +10,7 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
     maxAge: 24 * 60 * 60, // 24 hours
   },
+  adapter: PrismaAdapter(prisma),
   providers: [
     Credentials({
       name: 'Sign In',
@@ -39,11 +41,7 @@ export const authOptions: NextAuthOptions = {
         if (!isPasswordValid) {
           return null;
         }
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        };
+        return user;
       },
     }),
   ],
