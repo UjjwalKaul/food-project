@@ -25,7 +25,7 @@ const MyRecipes = () => {
         <div className="flex flex-col md:flex-row md:flex-wrap md:space-x-16">
           {recipes.map((recipe, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="mb-12">
                 <SearchItem recipe={recipe} />
               </div>
             );
