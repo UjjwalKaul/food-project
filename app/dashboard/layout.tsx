@@ -19,8 +19,24 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
           />
           <span>Dashboard</span>
         </Link>
+        <div className="flex items-center">
+          <Link href="/dashboard/add">
+            <button
+              type="button"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+              <svg
+                className="fill-current w-4 h-4 mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20">
+                <path d="M10 4v6H4v2h6v6h2v-6h6v-2h-6V4h-2z" />
+              </svg>
 
-        <LogoutButton />
+              <span>Add Recipe</span>
+            </button>
+          </Link>
+
+          <LogoutButton />
+        </div>
       </header>
       <main>{children}</main>
     </div>
