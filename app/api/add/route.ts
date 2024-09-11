@@ -57,7 +57,7 @@ export async function GET() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return { status: 404, body: { error: 'User email not found' } };
+    return NextResponse.json({ error: 'User not authorized' }, { status: 400 });
   }
 
   const recipes = await prisma.recipe.findMany({
