@@ -8,7 +8,9 @@ const MyRecipes = () => {
       {recipes.length > 0 ? (
         <div>Recipes</div>
       ) : (
-        <p className="text-gray-500">No recipes added yet</p>
+        <p className="text-gray-500 text-wrap text-center px-20 sm:px-2">
+          No recipes added yet select (+) icon to add your own
+        </p>
       )}
     </div>
   );
