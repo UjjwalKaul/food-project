@@ -3,7 +3,7 @@ import React from 'react';
 
 const AddRecipePage = () => {
   return (
-    <div>
+    <div className="flex justify-center">
       <AddRecipe />
     </div>
   );
