@@ -53,7 +53,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center m-1.5">
       <form
         onSubmit={handleSubmitSearch}
         className="w-full max-w-md sticky top-5 z-10 mb-8">

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const AddRecipe = () => {
   return (
@@ -16,6 +17,7 @@ export default AddRecipe;
 
 const AddRecipeForm = () => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     image: '',
@@ -89,6 +91,7 @@ const AddRecipeForm = () => {
     if (response.status === 201) {
       alert('Recipe added successfully');
     }
+    router.push('/dashboard');
   };
 
   return (

@@ -2,6 +2,7 @@ import { Recipe } from '@/app/util/types';
 import Image from 'next/image';
 
 const SearchItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
+  recipe.ingredientLines = recipe.ingredientLines || [];
   return (
     <div className="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="relative w-full" style={{ height: '350px' }}>

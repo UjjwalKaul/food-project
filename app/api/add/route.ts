@@ -1,5 +1,7 @@
 import { prisma } from '@/app/util/db';
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
+import { authOptions } from '../auth/[...nextauth]/options';
 
 export async function POST(req: Request) {
   try {
@@ -49,4 +51,20 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+}
+
+export async function GET() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.email) {
+    return { status: 404, body: { error: 'User email not found' } };
+  }
+
+  const recipes = await prisma.recipe.findMany({
+    where: {
+      user: { email: session.user.email },
+    },
+  });
+
+  return NextResponse.json(recipes, { status: 200 });
 }
