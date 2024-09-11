@@ -1,15 +1,39 @@
 'use client';
 import { Recipe } from '@/app/util/types';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import SearchItem from './SearchItem';
+
 const MyRecipes = () => {
-  const [recipes] = useState<Recipe[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    async function getRecipes() {
+      try {
+        const response = await axios.get('/api/add');
+        setRecipes(response.data);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    }
+    getRecipes();
+  }, []);
+
   return (
-    <div className="w-[30rem] h-[20rem] flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div>
       {recipes.length > 0 ? (
-        <div>Recipes</div>
+        <div className="flex flex-col md:flex-row md:flex-wrap md:space-x-16">
+          {recipes.map((recipe, index) => {
+            return (
+              <div key={index}>
+                <SearchItem recipe={recipe} />
+              </div>
+            );
+          })}
+        </div>
       ) : (
         <p className="text-gray-500 text-wrap text-center px-20 sm:px-2">
-          No recipes added yet select (+) icon to add your own
+          No recipes added yet, select (+) icon to add your own
         </p>
       )}
     </div>

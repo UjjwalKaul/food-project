@@ -7,7 +7,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'edamam-product-images.s3.amazonaws.com',
+        hostname: '**',
         pathname: '/**',
       },
     ],

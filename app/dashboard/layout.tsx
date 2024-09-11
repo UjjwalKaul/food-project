@@ -7,9 +7,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <header className="sticky top-0 z-10 flex justify-between p-5 shadow-md items-center bg-slate-800 mb-12">
-        <Link
-          className="flex items-center gap-2 text-3xl font-bold"
-          href="/dashboard">
+        <Link className="flex items-center gap-2" href="/dashboard">
           <Image
             className="mb-[0.6rem]"
             src={logo}
@@ -17,23 +15,43 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
             height={35}
             alt="Logo"
           />
-          <span>Dashboard</span>
+          <span className="text-xl sm:text-3xl font-bold">Dashboard</span>
         </Link>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+          <Link href="/dashboard/recipes">
+            <button
+              type="button"
+              className="text-white bg-green-700 hover:bg-green-800 rounded-lg px-4 py-2 text-center flex items-center w-full sm:w-auto dark:bg-green-600 dark:hover:bg-green-700">
+              <span className="hidden sm:inline text-lg">My Recipes</span>
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 sm:ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10">
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </button>
+          </Link>
           <Link href="/dashboard/add">
             <button
               type="button"
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded inline-flex items-center justify-center w-full">
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md inline-flex items-center justify-center w-full sm:w-auto">
               <svg
-                className="fill-current w-5 h-5"
+                className="fill-current w-5 h-5 mr-2 mb-1.5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20">
                 <path d="M10 4v6H4v2h6v6h2v-6h6v-2h-6V4h-2z" />
               </svg>
-              <span className="hidden sm:inline">Add Recipe</span>
+              <span className="hidden sm:inline text-lg">Add Recipe</span>
             </button>
           </Link>
-
           <LogoutButton />
         </div>
       </header>

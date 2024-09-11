@@ -9,7 +9,7 @@ const SearchItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         <Image
           className="rounded-t-lg object-cover"
           src={recipe.image}
-          alt={recipe.label}
+          alt={recipe.label || 'Recipe Image'}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
@@ -31,13 +31,13 @@ const SearchItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
           </span>
         </div>
 
-        <p className="mt-3 mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <div className="mt-3 mb-3 font-normal text-gray-700 dark:text-gray-400">
           <ul>
             {recipe.ingredientLines.map((line, index) => (
               <li key={index}>{line}</li>
             ))}
           </ul>
-        </p>
+        </div>
         <a
           href={recipe.url}
           target="_blank"
