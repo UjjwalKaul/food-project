@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
 
 const AddRecipe = () => {
   return (
@@ -83,6 +84,11 @@ const AddRecipeForm = () => {
       userId: session.user.email,
     };
     console.log(recipeData);
+
+    const response = await axios.post('/api/add', recipeData);
+    if (response.status === 201) {
+      alert('Recipe added successfully');
+    }
   };
 
   return (
